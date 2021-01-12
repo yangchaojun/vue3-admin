@@ -17,9 +17,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import logo from '/@/assets/images/logo.png'
+import { useGlobSetting } from '/@/hooks/setting'
 export default defineComponent({
   components: {},
   setup() {
+    useGlobSetting()
     return {
       logo,
       title: 'xxx'
