@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { modifyVars } from './build/config/lessModifyVars'
 import { resolve } from 'path'
 
 function pathResolve(dir: string) {
@@ -9,6 +10,18 @@ function pathResolve(dir: string) {
 export default defineConfig({
   alias: {
     '/@/': `${pathResolve('src')}/`
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          // reference:  Avoid repeated references
+          hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
+          ...modifyVars
+        },
+        javascriptEnabled: true
+      }
+    }
   },
   plugins: [vue()],
   optimizeDeps: {
